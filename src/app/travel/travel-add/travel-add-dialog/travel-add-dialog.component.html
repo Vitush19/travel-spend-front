@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>{{ travel.travelName }}</h2>
+<mat-dialog-content>
+  <p>Voyage</p>
+  <mat-form-field>
+    <mat-label>Nom du voyage</mat-label>
+    <input matInput [(ngModel)]="travel.travelName" />
+  </mat-form-field>
+  <p>Budget</p>
+  <mat-form-field>
+    <mat-label>Budget</mat-label>
+    <input type="number" min="0" matInput [(ngModel)]="travel.travelPrice" />
+  </mat-form-field>
+  <p></p>
+  <mat-form-field>
+    <mat-label>Sélectionner une plage de date</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input
+        matStartDate
+        placeholder="Start date"
+        (dateChange)="onChangeStartDate($event)"
+      />
+      <input
+        matEndDate
+        placeholder="End date"
+        (dateChange)="onChangeEndDate($event)"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+  <h4>Destination</h4>
+<mat-form-field>
+  <mat-label>Destination</mat-label>
+  <mat-select>
+    @for (country of this.countries; track country) {
+      <mat-option [value]="country.countryCode">{{country.name}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annuler</button>
+  <button mat-button [mat-dialog-close]="travel" cdkFocusInitial>
+    Valider
+  </button>
+</mat-dialog-actions>
